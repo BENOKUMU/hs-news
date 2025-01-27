@@ -3,6 +3,7 @@ import ColumnHead from "../Common/ColumnHead/ColumnHead";
 import MidCard from "../Components/Cards/MidCard";
 import TextOnly from "../Components/Cards/TextOnly";
 import BigCard from "../Components/Cards/BigCard";
+import SmallHorizontalCard from "../Components/Cards/SmallHorizontalCard";
 
 const SecondSection = () => {
   const midCards = [
@@ -109,7 +110,7 @@ const SecondSection = () => {
           <BigCard key={index} {...card} />
         ))}
         {smallHorizontalCard.map((card, index) => (
-          <TextOnly key={index} {...card} />
+          <SmallHorizontalCard key={index} {...card} />
         ))}
       </div>
       <div className="w-full md:w-1/3 p-4"></div>

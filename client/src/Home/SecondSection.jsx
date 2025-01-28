@@ -4,6 +4,7 @@ import MidCard from "../Components/Cards/MidCard";
 import TextOnly from "../Components/Cards/TextOnly";
 import BigCard from "../Components/Cards/BigCard";
 import SmallHorizontalCard from "../Components/Cards/SmallHorizontalCard";
+import { Link } from "react-router-dom";
 
 const SecondSection = () => {
   const midCards = [
@@ -113,7 +114,23 @@ const SecondSection = () => {
           <SmallHorizontalCard key={index} {...card} />
         ))}
       </div>
-      <div className="w-full md:w-1/3 p-4"></div>
+      <div className="w-full md:w-1/3 p-4">
+        <Link to="/adv-link">
+          <div className="w-full h-64 group mb-4">
+            <div className="w-full h-full group">
+              <img src="images/SecondSection/adv.jpg" alt="" className="h-full w-full object-cover" />
+            </div>
+            <div className="text-xs">Advertisement</div>
+          </div>
+        </Link>
+        <div>
+          {
+            smallHorizontalCard3.map((card, index) => (
+              <SmallHorizontalCard key={index} {...card} />
+            ))
+          }
+        </div>
+      </div>
     </div>
   );
 };

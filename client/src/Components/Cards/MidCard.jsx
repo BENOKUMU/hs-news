@@ -1,9 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MidCard = ({ link = "/", imageSrc = "", tag = "", text = "Default Text" }) => {
+const MidCard = ({
+  link = "/",
+  imageSrc = "",
+  tag = "",
+  text = "Default Text",
+  className = "",
+  style = {},
+}) => {
   return (
-    <Link to={link} className="block group">
+    <Link to={link} className={`block group ${className}`} style={style}>
       <div className="relative w-full h-[180px] md:h-[200px] rounded-lg overflow-hidden">
         <img
           src={imageSrc}
@@ -16,7 +23,10 @@ const MidCard = ({ link = "/", imageSrc = "", tag = "", text = "Default Text" })
           </div>
         )}
       </div>
-      <h4 className="text-lg font-semibold mt-2 text-black hover:underline group-hover:text-gray-700">
+      <h4
+        className="text-lg font-semibold mt-2 hover:underline group-hover:text-gray-700"
+        style={style}
+      >
         {text}
       </h4>
     </Link>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff } from "react-feather";
 import AuthFooter from "./AuthFooter";
+import axios from "axios";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -10,11 +11,21 @@ const Register = () => {
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [ValidationErrors, setValidationErrors] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:4001/api/register", {
+        email,
+        password,
+      });
+    } catch (error) {
+      console.log(error);
+    }
     console.log(e);
   };
 
   const handleEmailChange = (e) => {
+    setEmail(e.target.value);
     console.log(e);
   };
 
@@ -37,7 +48,7 @@ const Register = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
-  }
+  };
 
   return (
     <div>
@@ -93,7 +104,10 @@ const Register = () => {
                     setValidationErrors(false);
                   }}
                 />
-                <span className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer z-20" onClick={togglePasswordVisibility} >
+                <span
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer z-20"
+                  onClick={togglePasswordVisibility}
+                >
                   {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                 </span>
                 {isPasswordFocused && (
@@ -105,13 +119,15 @@ const Register = () => {
                       display: password ? "block" : "none",
                       zIndex: "999", // Ensure the tooltip is above other elements
                     }}
-                    className="bg-white text-xs p-2 border rounded drop-shadow-md border-gray-500 z-10">
+                    className="bg-white text-xs p-2 border rounded drop-shadow-md border-gray-500 z-10"
+                  >
                     <div
                       style={{
                         color: passwordValidation.hasLowerCase
                           ? "green"
                           : "red",
-                      }}>
+                      }}
+                    >
                       {passwordValidation.hasLowerCase ? "✓" : "✗"} At least one
                       lowercase letter
                     </div>
@@ -120,21 +136,24 @@ const Register = () => {
                         color: passwordValidation.hasUpperCase
                           ? "green"
                           : "red",
-                      }}>
+                      }}
+                    >
                       {passwordValidation.hasUpperCase ? "✓" : "✗"} At least one
                       uppercase letter
                     </div>
                     <div
                       style={{
                         color: passwordValidation.hasDigit ? "green" : "red",
-                      }}>
+                      }}
+                    >
                       {passwordValidation.hasDigit ? "✓" : "✗"} At least one
                       digit
                     </div>
                     <div
                       style={{
                         color: passwordValidation.hasSymbol ? "green" : "red",
-                      }}>
+                      }}
+                    >
                       {passwordValidation.hasSymbol ? "✓" : "✗"} At least one
                       special character
                     </div>
@@ -143,7 +162,8 @@ const Register = () => {
                         color: passwordValidation.isLengthValid
                           ? "green"
                           : "red",
-                      }}>
+                      }}
+                    >
                       {passwordValidation.isLengthValid ? "✓" : "✗"} Minimum
                       length of 8 characters
                     </div>

@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const bosyParser = require("body-parser");
+const dotenv = require("dotenv");
+dotenv.config({ path: "config.env" });
+const { connectDB } = require("./Database/connection");
 
 const PORT = process.env.PORT || 4001;
 
@@ -11,6 +15,10 @@ app.use(
         credentials: true,
     })
 );
+
+app.use(bosyParser.json())
+
+connectDB();
 
 app.use("/", require("./Router/router"))
 

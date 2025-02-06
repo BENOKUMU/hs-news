@@ -13,15 +13,20 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPasswordFocused(false);
     try {
-      const response = await axios.post("http://localhost:4001/api/register", {
+      const response = await axios.post("http://localhost:4000/api/register", {
         email,
         password,
       });
+      alert(response.data.message);
+      setRegistered(true);
     } catch (error) {
-      console.log(error);
+      if (error.response && error.response.status === 400) {
+        setValidationErrors(error.response.data);
+        console.log("error.response.data is: ", error.response.data);
+      }
     }
-    console.log(e);
   };
 
   const handleEmailChange = (e) => {

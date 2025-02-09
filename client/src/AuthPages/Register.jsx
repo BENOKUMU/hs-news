@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import { Eye, EyeOff } from "react-feather";
 import AuthFooter from "./AuthFooter";
 import axios from "axios";
+import { Navigate } from "react-router-dom"
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-  const [ValidationErrors, setValidationErrors] = useState(false);
+  const [validationErrors, setValidationErrors] = useState(false);
+  const [registered, setRegistered] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,6 +56,10 @@ const Register = () => {
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
+  if(registered) {
+    return <Navigate to="/login" />
+  }
 
   return (
     <div>
@@ -186,11 +192,11 @@ const Register = () => {
                 </p>
               </div>
             </div>
-            {ValidationErrors && (
+            {validationErrors && (
               <div className="text-red-600">
-                {Object.keys(ValidationErrors).map((key) => {
-                  if (typeof ValidationErrors[key] === "object") {
-                    return Object.values(ValidationErrors[key]).map((error) => (
+                {Object.keys(validationErrors).map((key) => {
+                  if (typeof validationErrors[key] === "object") {
+                    return Object.values(validationErrors[key]).map((error) => (
                       <p className="mb-2 text-sm" key={error}>
                         {error}
                       </p>
@@ -198,7 +204,7 @@ const Register = () => {
                   }
                   return (
                     <p className="mb-2 text-sm" key={key}>
-                      {ValidationErrors[key]}
+                      {validationErrors[key]}
                     </p>
                   );
                 })}

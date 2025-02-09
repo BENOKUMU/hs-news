@@ -186,6 +186,24 @@ const Register = () => {
                 </p>
               </div>
             </div>
+            {ValidationErrors && (
+              <div className="text-red-600">
+                {Object.keys(ValidationErrors).map((key) => {
+                  if (typeof ValidationErrors[key] === "object") {
+                    return Object.values(ValidationErrors[key]).map((error) => (
+                      <p className="mb-2 text-sm" key={error}>
+                        {error}
+                      </p>
+                    ));
+                  }
+                  return (
+                    <p className="mb-2 text-sm" key={key}>
+                      {ValidationErrors[key]}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
             <div>
               <button
                 type="submit"

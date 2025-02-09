@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const bosyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 dotenv.config({ path: "config.env" });
 const { connectDB } = require("./Database/connection");
@@ -10,13 +10,13 @@ const PORT = process.env.PORT || 4001;
 
 app.use(
     cors({
-        origin:"http://localhost:4001",
+        origin:["http://localhost:4001", "http://localhost:5173", "http://localhost:4000"],
         methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
         credentials: true,
     })
 );
 
-app.use(bosyParser.json())
+app.use(bodyParser.json())
 
 connectDB();
 

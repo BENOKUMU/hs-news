@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const session = require("express-session");
 dotenv.config({ path: "config.env" });
 const { connectDB } = require("./Database/connection");
 
@@ -16,7 +17,18 @@ app.use(
     })
 );
 
+
 app.use(bodyParser.json())
+
+app.use(
+    session({
+      secret: "your_secret_key",
+      resave: false,
+      saveUninitialized: false,
+      rolling: true,
+      cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }, // 7 days
+    })
+  );
 
 connectDB();
 

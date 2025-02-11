@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 4001;
 app.use(
     cors({
         origin:["http://localhost:4001", "http://localhost:5173", "http://localhost:4000"],
-        methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+        methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD"],
         credentials: true,
     })
 );
@@ -36,4 +36,19 @@ app.use("/", require("./Router/router"))
 
 const server = app.listen(PORT, ()=> {
     console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+const io = socketIO(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    method: ["GET", "POST"],
+    credentials: true,
+  },
+});
+
+io.on("connection", async (socket) => {
+  socket.on("liveUpdate", async (data) => {
+    console.log("Live News Received");
+    io.emit("liveNewsUpdate", data);
+  });
 });

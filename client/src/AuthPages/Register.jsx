@@ -17,7 +17,7 @@ const Register = () => {
     e.preventDefault();
     setIsPasswordFocused(false);
     try {
-      const response = await axios.post("http://localhost:4000/api/register", {
+      const response = await axios.post("http://localhost:8080/api/register", {
         email,
         password,
       });
